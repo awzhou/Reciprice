@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">True-False Quiz</string>
-    <string name="quiz_true">True</string>
-    <string name="quiz_false">False</string>
-    <string name="score_score">Your Score</string>
-    <string name="score_playagain">Play Again?</string>
-</resources>

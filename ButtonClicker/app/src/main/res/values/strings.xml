@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">Button Clicker</string>
-    <string name="button_main_clickme">Click Me</string>
-    <string name="textview_main_score">Score: 0</string>
-</resources>
