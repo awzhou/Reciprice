@@ -30,10 +30,6 @@ public class LoginActivity extends AppCompatActivity {
 
         wireWidgets();
 
-        // initialize Backendless connection
-        Backendless.initApp(this, com.example.reciprice.Credentials.APP_ID, com.example.reciprice.Credentials.API_KEY);
-
-
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
