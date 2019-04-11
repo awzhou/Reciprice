@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Prueba Cierto-Falso</string>
+    <string name="quiz_true">Cierto</string>
+    <string name="quiz_false">Falso</string>
+    <string name="score_score">Su Puntuación</string>
+    <string name="score_playagain">¿Juega usted de nuevo?</string>
+</resources>

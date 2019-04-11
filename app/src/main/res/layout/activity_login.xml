@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <EditText
+        android:id="@+id/editText_login_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="150dp" />
+
+    <EditText
+        android:id="@+id/editText_login_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="213dp" />
+
+    <TextView
+        android:id="@+id/textView_login_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create an account"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="331dp" />
+
+    <Button
+        android:id="@+id/button_login_login"
+        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log In"
+        tools:layout_editor_absoluteX="51dp"
+        tools:layout_editor_absoluteY="270dp" />
+</android.support.constraint.ConstraintLayout>
