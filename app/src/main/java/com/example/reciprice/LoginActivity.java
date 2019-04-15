@@ -90,4 +90,6 @@ public class LoginActivity extends AppCompatActivity {
         editTextUsername = findViewById(R.id.editText_login_user);
         textViewTitle = findViewById(R.id.textView_login_title);
     }
+
+    //hi
 }
