@@ -15,7 +15,6 @@ import com.backendless.exceptions.BackendlessFault;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
-    private EditText editTextName;
     private EditText editTextUsername;
     private EditText editTextPassword;
     private EditText editTextConfirmPassword;
@@ -47,7 +46,6 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     private void registerAccountOnBackendless() {
-        String name = editTextName.getText().toString();
         String email = editTextEmail.getText().toString();
         String password = editTextPassword.getText().toString();
         String confirmPassword = editTextConfirmPassword.getText().toString();
@@ -56,14 +54,12 @@ public class CreateAccountActivity extends AppCompatActivity {
             BackendlessUser user = new BackendlessUser();
             user.setProperty("username", username);
             user.setEmail(email);
-            user.setProperty("name", name);
             user.setPassword(password);
             Backendless.UserService.register(user, new AsyncCallback<BackendlessUser>() {
                 @Override
                 public void handleResponse(BackendlessUser response) {
-                    Toast.makeText(CreateAccountActivity.this, response.getEmail() + " registered", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAccountActivity.this,  "You are registered", Toast.LENGTH_SHORT).show();
                 }
-
                 @Override
                 public void handleFault(BackendlessFault fault) {
                     Toast.makeText(CreateAccountActivity.this, fault.getMessage(), Toast.LENGTH_SHORT).show();
