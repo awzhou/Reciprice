@@ -20,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonLogin;
     private EditText editTextUsername;
     private EditText editTextPassword;
+    private TextView textViewTitle;
 
     public static final String EXTRA_USERNAME = "username";
 
@@ -87,5 +88,6 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin = findViewById(R.id.button_login_login);
         editTextPassword = findViewById(R.id.editText_login_pass);
         editTextUsername = findViewById(R.id.editText_login_user);
+        textViewTitle = findViewById(R.id.textView_login_title);
     }
 }
