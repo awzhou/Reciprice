@@ -2,8 +2,13 @@ package com.example.reciprice;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,7 +19,7 @@ import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginFragment extends Fragment {
 
     private TextView textViewCreateAccount;
     private Button buttonLogin;
@@ -24,12 +29,12 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String EXTRA_USERNAME = "username";
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_login, container, false);
 
-        wireWidgets();
+        wireWidgets(rootView);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,15 +47,24 @@ public class LoginActivity extends AppCompatActivity {
         textViewCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent createAccountIntent = new Intent(LoginActivity.this, CreateAccountActivity.class);
+                //Intent createAccountIntent = new Intent(getContext(), CreateAccountFragment.class);
 
-                String username = editTextUsername.getText().toString();
-                if(username.length() > 0) {
-                    createAccountIntent.putExtra(EXTRA_USERNAME, username);
-                }
-                startActivity(createAccountIntent);
+                // TODO: pass info betw fragments
+//                String username = editTextUsername.getText().toString();
+//                if(username.length() > 0) {
+//                    createAccountIntent.putExtra(EXTRA_USERNAME, username);
+//                }
+//                startFragment(createAccountIntent);
+
+                Fragment newFragment = new CreateAccountFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
+
+        return rootView;
     }
 
     private void loginToBackendless() {
@@ -64,17 +78,16 @@ public class LoginActivity extends AppCompatActivity {
                         // this method is called when the login is complete
                         // and successful
 
-                        Toast.makeText(LoginActivity.this,
+                        Toast.makeText(getActivity(),
                                 "Logged In"
                                 , Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);
-                        finish();
                     }
 
                     @Override
                     public void handleFault(BackendlessFault fault) {
-                        Toast.makeText(LoginActivity.this,
+                        Toast.makeText(getActivity(),
                                 fault.getMessage(),
                                 Toast.LENGTH_SHORT).show();
                     }
@@ -83,13 +96,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void wireWidgets() {
-        textViewCreateAccount = findViewById(R.id.textView_login_create);
-        buttonLogin = findViewById(R.id.button_login_login);
-        editTextPassword = findViewById(R.id.editText_login_pass);
-        editTextUsername = findViewById(R.id.editText_login_user);
-        textViewTitle = findViewById(R.id.textView_login_title);
+    private void wireWidgets(View rootView) {
+        textViewCreateAccount = rootView.findViewById(R.id.textView_login_create);
+        buttonLogin = rootView.findViewById(R.id.button_login_login);
+        editTextPassword = rootView.findViewById(R.id.editText_login_pass);
+        editTextUsername = rootView.findViewById(R.id.editText_login_user);
+        textViewTitle = rootView.findViewById(R.id.textView_login_title);
     }
-
-    //hi
 }

@@ -2,9 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:id="@+id/navigation_login"
+        android:icon="@drawable/ic_person_outline_black_24dp"
+        android:title="@string/title_login" />
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/title_search" />
+    <item
+        android:id="@+id/navigation_saved"
+        android:icon="@drawable/ic_bookmark_border_black_24dp"
+        android:title="@string/title_saved" />
 
 
 </menu>

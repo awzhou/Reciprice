@@ -20,9 +20,15 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             FragmentManager fm = getSupportFragmentManager();
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    fm.beginTransaction().replace(R.id.container, new SearchFragment()).commit();
+                case R.id.navigation_search:
+                    fm.beginTransaction().replace(R.id.container, new DisplayFragment()).commit();
                     return true;
+                case R.id.navigation_login:
+                    fm.beginTransaction().replace(R.id.container, new LoginFragment()).commit();
+                    return true;
+//                case R.id.navigation_saved:
+//                    fm.beginTransaction().replace(R.id.container, new SavedFragment()).commit();
+//                    return true;
 
 
             }
@@ -39,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.container, new SearchFragment()).commit();
+        fm.beginTransaction().replace(R.id.container, new DisplayFragment()).commit();
     }
 
 }
