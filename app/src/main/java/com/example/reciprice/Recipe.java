@@ -1,26 +1,22 @@
 package com.example.reciprice;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 public class Recipe {
 
     private String label;
+    @SerializedName("url")
     private String recipeURL;
-    private String dietLabels;
-    private String healthLabels;
+    private List<String> dietLabels;
+    private List<String> healthLabels;
+    @SerializedName("image")
     private String imageURL;
-    private String ingredientLines;
-    private String cautions;
+    private List<String> ingredientLines;
+    private List<String> cautions;
 
-    @Override
-    public String toString() {
-        return "Recipe{" +
-                "label='" + label + '\'' +
-                ", recipeURL='" + recipeURL + '\'' +
-                ", dietLabels='" + dietLabels + '\'' +
-                ", healthLabels='" + healthLabels + '\'' +
-                ", imageURL='" + imageURL + '\'' +
-                ", ingredientLines='" + ingredientLines + '\'' +
-                ", cautions='" + cautions + '\'' +
-                '}';
+    public Recipe() {
     }
 
     public String getLabel() {
@@ -39,19 +35,19 @@ public class Recipe {
         this.recipeURL = recipeURL;
     }
 
-    public String getDietLabels() {
+    public List<String> getDietLabels() {
         return dietLabels;
     }
 
-    public void setDietLabels(String dietLabels) {
+    public void setDietLabels(List<String> dietLabels) {
         this.dietLabels = dietLabels;
     }
 
-    public String getHealthLabels() {
+    public List<String> getHealthLabels() {
         return healthLabels;
     }
 
-    public void setHealthLabels(String healthLabels) {
+    public void setHealthLabels(List<String> healthLabels) {
         this.healthLabels = healthLabels;
     }
 
@@ -63,23 +59,32 @@ public class Recipe {
         this.imageURL = imageURL;
     }
 
-    public String getIngredientLines() {
+    public List<String> getIngredientLines() {
         return ingredientLines;
     }
 
-    public void setIngredientLines(String ingredientLines) {
+    public void setIngredientLines(List<String> ingredientLines) {
         this.ingredientLines = ingredientLines;
     }
 
-    public String getCautions() {
+    public List<String> getCautions() {
         return cautions;
     }
 
-    public void setCautions(String cautions) {
+    public void setCautions(List<String> cautions) {
         this.cautions = cautions;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "label='" + label + '\'' +
+                ", recipeURL='" + recipeURL + '\'' +
+                ", dietLabels=" + dietLabels +
+                ", healthLabels=" + healthLabels +
+                ", imageURL='" + imageURL + '\'' +
+                ", ingredientLines=" + ingredientLines +
+                ", cautions=" + cautions +
+                '}';
+    }
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class RecipeResponse {
 
-    private List<Recipe> hits;
+    private List<RecipeWrapper> hits;
 
 
     public String toString() {
@@ -13,16 +13,15 @@ public class RecipeResponse {
                 '}';
     }
 
-    public RecipeResponse(List<Recipe> hits) {
-        this.hits = hits;
+    public RecipeResponse() {
     }
 
-    public List<Recipe> getHits() {
+    public List<RecipeWrapper> getHits() {
 
         return hits;
     }
 
-    public void setHits(List<Recipe> hits) {
+    public void setHits(List<RecipeWrapper> hits) {
         this.hits = hits;
     }
 
