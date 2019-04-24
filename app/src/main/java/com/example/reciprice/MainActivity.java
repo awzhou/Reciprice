@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentManager fm = getSupportFragmentManager();
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    fm.beginTransaction().replace(R.id.container, new SearchFragment()).commit();
+                    fm.beginTransaction().replace(R.id.container, new DisplayFragment()).commit();
                     return true;
 
 
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction().replace(R.id.container, new SearchFragment()).commit();
+        fm.beginTransaction().replace(R.id.container, new DisplayFragment()).commit();
     }
 
 }
