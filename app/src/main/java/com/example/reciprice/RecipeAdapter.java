@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>{
-    private List<String> recipes;
+    private List<Recipe> recipes;
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder{
         public RecipeViewHolder(@NonNull View itemView) {
