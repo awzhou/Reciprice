@@ -6,7 +6,7 @@ import retrofit2.http.Query;
 
 public interface RecipeService {
 
-    @GET("search")
+    @GET("search?")
 
     Call<RecipeResponse> searchByKeyWord(
             @Query("q")String keyword,

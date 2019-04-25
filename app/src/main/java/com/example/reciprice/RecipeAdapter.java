@@ -5,19 +5,30 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>{
-    private List<String> recipes;
+    private List<Recipe> recipes;
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder{
+        private ImageView imageViewRecipeImage;
+        private TextView textViewRecipeTitle;
+
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
+            imageViewRecipeImage= itemView.findViewById(R.id.imageView_recipe_item_image);
+            textViewRecipeTitle= itemView.findViewById(R.id.textView_recipe_item_title);
         }
     }
 
-    public RecipeAdapter() {
+    public RecipeAdapter(List<Recipe> recipes) {
+        this.recipes = recipes;
+
     }
 
     @NonNull
@@ -30,8 +41,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecipeViewHolder recipeViewHolder, int i) {
-
+    public void onBindViewHolder(@NonNull RecipeViewHolder recipeViewHolder, int position) {
+        Recipe currentRecipe = recipes.get(position);
+        recipeViewHolder.textViewRecipeTitle.setText(currentRecipe.getLabel());
+        Glide.with(recipeViewHolder.imageViewRecipeImage).load(currentRecipe.getImageURL()).into(recipeViewHolder.imageViewRecipeImage);
     }
 
     @Override
