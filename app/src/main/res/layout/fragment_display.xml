@@ -23,7 +23,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="🔍Search for recipes"
+        android:hint="🔍 Search for recipes..."
         android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/button_display_search"
         app:layout_constraintStart_toStartOf="parent"
