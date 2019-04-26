@@ -18,11 +18,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public class RecipeViewHolder extends RecyclerView.ViewHolder{
         private ImageView imageViewRecipeImage;
         private TextView textViewRecipeTitle;
+        private TextView textViewRecipeCaution;
 
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageViewRecipeImage= itemView.findViewById(R.id.imageView_recipe_item_image);
-            textViewRecipeTitle= itemView.findViewById(R.id.textView_recipe_item_title);
+            imageViewRecipeImage = itemView.findViewById(R.id.imageView_recipe_item_image);
+            textViewRecipeTitle = itemView.findViewById(R.id.textView_recipe_item_title);
+            textViewRecipeCaution = itemView.findViewById(R.id.textView_recipe_item_caution);
         }
     }
 
@@ -43,7 +45,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder recipeViewHolder, int position) {
         Recipe currentRecipe = recipes.get(position);
+        String cautions = "";
+        for (String c : currentRecipe.getCautions()) {
+            cautions += c + ", ";
+        }
+        if (cautions.length() > 0) {
+            cautions = cautions.substring(0, cautions.length() - 2);
+        }
+
         recipeViewHolder.textViewRecipeTitle.setText(currentRecipe.getLabel());
+        recipeViewHolder.textViewRecipeCaution.setText(cautions);
         Glide.with(recipeViewHolder.imageViewRecipeImage).load(currentRecipe.getImageURL()).into(recipeViewHolder.imageViewRecipeImage);
     }
 
