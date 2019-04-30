@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -17,6 +18,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +37,7 @@ public class DisplayFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private RecipeAdapter recipeAdapter;
     private List<Recipe> recipes;
+    private List<Recipe> savedRecipes;
 
     private EditText searchText;
     private Button searchButton;
@@ -44,11 +50,14 @@ public class DisplayFragment extends Fragment {
         wireWidgets(rootView);
 
         recipes = new ArrayList<>();
+        savedRecipes = new ArrayList<>();
         layoutManager = new LinearLayoutManager(getActivity());
         recipeAdapter = new RecipeAdapter(recipes);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recipeAdapter);
+
+        registerForContextMenu(recyclerView);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +98,7 @@ public class DisplayFragment extends Fragment {
                     recipes.addAll(newRecipes);
                     recipeAdapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(getContext(), "No recipes were found. Please enter another search.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "No recipes were found. Please enter another search.", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -107,5 +116,38 @@ public class DisplayFragment extends Fragment {
             newRecipes.add(recipeWrapper.getRecipe());
         }
         return newRecipes;
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.save:
+                Recipe recipe = recipes.get(recipeAdapter.getPosition());
+                savedRecipes.add(recipe);
+                writeToFile(savedRecipes);
+                Toast.makeText(getContext(), "Successfully Saved", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
+    }
+
+    public void writeToFile(List<Recipe> savedRecipes) {
+        // check if the file already exists...if it doesn't:
+        String fileName = "favoriteRecipes.txt";
+        File file = new File(getActivity().getFilesDir(), fileName);
+        Gson gson = new Gson();
+
+        String s = gson.toJson(savedRecipes);
+
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = getActivity().openFileOutput(fileName, Context.MODE_PRIVATE);
+            outputStream.write(s.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
     }
 }

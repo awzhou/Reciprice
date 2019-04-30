@@ -2,7 +2,9 @@ package com.example.reciprice;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,6 +16,7 @@ import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>{
     private List<Recipe> recipes;
+    private int position;
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder{
         private ImageView imageViewRecipeImage;
@@ -25,7 +28,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             imageViewRecipeImage = itemView.findViewById(R.id.imageView_recipe_item_image);
             textViewRecipeTitle = itemView.findViewById(R.id.textView_recipe_item_title);
             textViewRecipeCaution = itemView.findViewById(R.id.textView_recipe_item_caution);
+
+            itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+                @Override
+                public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+                    menu.add(Menu.NONE, R.id.save, Menu.NONE, "Save");
+                }
+            });
         }
+
+
     }
 
     public RecipeAdapter(List<Recipe> recipes) {
@@ -67,5 +79,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         }
     }
 
+    public int getPosition(){
+        return position;
+    }
 
 }

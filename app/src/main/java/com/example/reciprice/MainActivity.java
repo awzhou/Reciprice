@@ -27,9 +27,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_login:
                     fm.beginTransaction().replace(R.id.container, new LoginFragment()).commit();
                     return true;
-//                case R.id.navigation_saved:
-//                    fm.beginTransaction().replace(R.id.container, new SavedFragment()).commit();
-//                    return true;
+                case R.id.navigation_saved:
+                    fm.beginTransaction().replace(R.id.container, new SaveFragment()).commit();
+                    return true;
 
 
             }
