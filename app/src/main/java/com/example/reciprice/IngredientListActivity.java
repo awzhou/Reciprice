@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 
 public class IngredientListActivity extends AppCompatActivity {
     private Recipe recipe;
-    public static final String EXTRA_MESSAGE = "message";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
