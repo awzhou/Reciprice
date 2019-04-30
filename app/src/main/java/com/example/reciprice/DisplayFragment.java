@@ -1,6 +1,7 @@
 package com.example.reciprice;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,6 +33,7 @@ public class DisplayFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private RecipeAdapter recipeAdapter;
     private List<Recipe> recipes;
+    private String EXTRA_MESSAGE = "message";
 
     private EditText searchText;
     private Button searchButton;
