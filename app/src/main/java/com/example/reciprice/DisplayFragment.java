@@ -89,7 +89,7 @@ public class DisplayFragment extends Fragment {
                     recipes.addAll(newRecipes);
                     recipeAdapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(getActivity(), "No recipes were found. Please enter another search.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "No recipes were found. Please enter another search.", Toast.LENGTH_SHORT).show();
                 }
             }
 
