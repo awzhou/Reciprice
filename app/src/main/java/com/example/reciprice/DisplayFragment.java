@@ -80,11 +80,11 @@ public class DisplayFragment extends Fragment {
         recipeResponseCall.enqueue(new Callback<RecipeResponse>() {
             @Override
             public void onResponse(Call<RecipeResponse> call, Response<RecipeResponse> response) {
-                if (response.body().getHits() != null) {
+                Log.e("hits", response.body().getHits() + "");
+                if (!response.body().getHits().isEmpty()) {
                     List<RecipeWrapper> recipeWrappers = response.body().getHits();
 
                     List<Recipe> newRecipes = addRecipes(recipeWrappers);
-                    Log.e("recipes", newRecipes + "");
 
                     recipes.addAll(newRecipes);
                     recipeAdapter.notifyDataSetChanged();
