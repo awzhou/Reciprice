@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.backendless.Backendless;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -24,13 +26,15 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_search:
                     fm.beginTransaction().replace(R.id.container, new DisplayFragment()).commit();
                     return true;
-                case R.id.navigation_login:
-                    fm.beginTransaction().replace(R.id.container, new LoginFragment()).commit();
-                    return true;
+
                 case R.id.navigation_saved:
                     fm.beginTransaction().replace(R.id.container, new SaveFragment()).commit();
                     return true;
-
+                case R.id.navigation_login:
+                    if(!(Backendless.UserService.isValidLogin())) {
+                        fm.beginTransaction().replace(R.id.container, new LoginFragment()).commit();
+                        return true;
+                    }
 
             }
             return false;
