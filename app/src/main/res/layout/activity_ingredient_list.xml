@@ -6,4 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".IngredientListActivity">
 
+    <TextView
+        android:id="@+id/textView_ingredientList"
+        android:layout_width="332dp"
+        android:layout_height="394dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
