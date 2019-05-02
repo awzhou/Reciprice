@@ -3,9 +3,11 @@ package com.example.reciprice;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -26,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_search:
                     fm.beginTransaction().replace(R.id.container, new DisplayFragment()).commit();
                     return true;
-
                 case R.id.navigation_saved:
                     fm.beginTransaction().replace(R.id.container, new SaveFragment()).commit();
                     return true;
@@ -49,6 +50,18 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_search);
+
+        if (Backendless.UserService.isValidLogin()) {
+
+            // get menu from navigationView
+            Menu menu = navigation.getMenu();
+
+            // find MenuItem you want to change
+            MenuItem nav_account = menu.findItem(R.id.navigation_login);
+
+            // set new title to the MenuItem
+            nav_account.setTitle(R.string.title_logout);
+        }
     }
 
 }
