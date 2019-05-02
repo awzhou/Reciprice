@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.DataQueryBuilder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -36,7 +41,8 @@ public class SaveFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_save, container, false);
 
-        readFile();
+        favoriteRecipes = new ArrayList<>();
+        readSaved();
 
         recyclerView = rootView.findViewById(R.id.recyclerView_save);
         textViewTitle = rootView.findViewById(R.id.textView_save_title);
@@ -50,28 +56,24 @@ public class SaveFragment extends Fragment {
         return rootView;
     }
 
-    public void readFile(){
-        try {
-            FileInputStream fileInputStream = getContext().openFileInput("favoriteRecipes.txt");
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            StringBuilder stringBuilder = new StringBuilder();
-            String line;
-
-            try {
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+    public void readSaved(){
+        String ownerId = Backendless.UserService.CurrentUser().getObjectId();
+        String whereClause = "ownerId = '" + ownerId + "'";
+        DataQueryBuilder queryBuilder = DataQueryBuilder.create();
+        queryBuilder.setWhereClause(whereClause);
+        Backendless.Data.of(Recipe.class).find(queryBuilder, new AsyncCallback<List<Recipe>>() {
+            @Override
+            public void handleResponse(List<Recipe> response) {
+                favoriteRecipes.clear();
+                favoriteRecipes.addAll(response);
+                Log.e("favoriteRecipes", favoriteRecipes.toString() + "");
+                recipeAdapter.notifyDataSetChanged();
             }
 
-            String json = stringBuilder.toString();
-            Gson gson = new Gson();
-            favoriteRecipes = gson.fromJson(json, new TypeToken<ArrayList<Recipe>>() {
-            }.getType());
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-        }
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                Log.e("fault", fault.getMessage());
+            }
+        });
     }
 }

@@ -22,7 +22,7 @@ import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment{
 
     private TextView textViewCreateAccount;
     private Button buttonLogin;

@@ -19,6 +19,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -38,7 +42,6 @@ public class DisplayFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private RecipeAdapter recipeAdapter;
     private List<Recipe> recipes;
-    private List<Recipe> savedRecipes;
 
     private EditText searchText;
     private Button searchButton;
@@ -51,14 +54,15 @@ public class DisplayFragment extends Fragment {
         wireWidgets(rootView);
 
         recipes = new ArrayList<>();
-        savedRecipes = new ArrayList<>();
         layoutManager = new LinearLayoutManager(getActivity());
         recipeAdapter = new RecipeAdapter(recipes);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recipeAdapter);
 
-        registerForContextMenu(recyclerView);
+        if(isLoggedIn()){
+            registerForContextMenu(recyclerView);
+        }
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,31 +128,30 @@ public class DisplayFragment extends Fragment {
         switch(item.getItemId()){
             case R.id.save:
                 Recipe recipe = recipes.get(recipeAdapter.getPosition());
-                savedRecipes.add(recipe);
-                writeToFile(savedRecipes);
-                Toast.makeText(getContext(), "Successfully Saved", Toast.LENGTH_SHORT).show();
+                saveRecipe(recipe);
                 break;
         }
         return true;
     }
 
-    public void writeToFile(List<Recipe> savedRecipes) {
-        // check if the file already exists...if it doesn't:
-        String fileName = "favoriteRecipes.txt";
-        File file = new File(getActivity().getFilesDir(), fileName);
-        Gson gson = new Gson();
+    public void saveRecipe(Recipe recipe) {
+        Backendless.Persistence.save(recipe, new AsyncCallback<Recipe>() {
+            @Override
+            public void handleResponse(Recipe response) {
+                Toast.makeText(getContext(), "Successfully Saved", Toast.LENGTH_SHORT).show();
+            }
 
-        String s = gson.toJson(savedRecipes);
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                Log.e("fault", fault.getMessage() + "");
+            }
+        });
+    }
 
-        FileOutputStream outputStream;
-
-        try {
-            outputStream = getActivity().openFileOutput(fileName, Context.MODE_PRIVATE);
-            outputStream.write(s.getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-
+    public boolean isLoggedIn() {
+        if(Backendless.UserService.CurrentUser() != null){
+            return true;
         }
+        return  false;
     }
 }

@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.backendless.Backendless;
 
 public class MainActivity extends AppCompatActivity {
+import com.backendless.Backendless;
+
+public class MainActivity extends AppCompatActivity{
 
 
 
@@ -29,7 +32,11 @@ public class MainActivity extends AppCompatActivity {
                     fm.beginTransaction().replace(R.id.container, new DisplayFragment()).commit();
                     return true;
                 case R.id.navigation_saved:
-                    fm.beginTransaction().replace(R.id.container, new SaveFragment()).commit();
+                    if(isLoggedIn()) {
+                        fm.beginTransaction().replace(R.id.container, new SaveFragment()).commit();
+                    }else{
+                        fm.beginTransaction().replace(R.id.container, new NotLoggedInFragment()).commit();
+                    }
                     return true;
                 case R.id.navigation_login:
                     if(!(Backendless.UserService.isValidLogin())) {
@@ -64,4 +71,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    public boolean isLoggedIn() {
+        if(Backendless.UserService.CurrentUser() != null){
+            return true;
+        }
+        return  false;
+    }
 }
