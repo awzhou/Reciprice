@@ -86,7 +86,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         }
 
         recipeViewHolder.textViewRecipeTitle.setText(currentRecipe.getLabel());
-        recipeViewHolder.textViewRecipeCaution.setText(cautions);
+        recipeViewHolder.textViewRecipeCaution.setText("Cautions: " + cautions);
         Glide.with(recipeViewHolder.imageViewRecipeImage).load(currentRecipe.getImageURL()).into(recipeViewHolder.imageViewRecipeImage);
     }
 
