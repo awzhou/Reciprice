@@ -3,6 +3,7 @@ package com.example.reciprice;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -10,6 +11,7 @@ import com.google.gson.Gson;
 public class IngredientListActivity extends AppCompatActivity {
     private Recipe recipe;
     private TextView textViewTitle;
+    private ImageView imageViewImage;
     private TextView textViewIngredients;
     private TextView textViewCautions;
     private TextView textViewDietLabels;
