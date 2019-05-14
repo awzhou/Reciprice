@@ -1,4 +1,4 @@
-package com.example.reciprice;
+package com.example.reciprice.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.example.reciprice.R;
 
 public class CreateAccountFragment extends Fragment {
 

@@ -1,4 +1,4 @@
-package com.example.reciprice;
+package com.example.reciprice.model;
 
 import java.util.List;
 

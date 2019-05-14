@@ -1,4 +1,4 @@
-package com.example.reciprice;
+package com.example.reciprice.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.reciprice.R;
+import com.example.reciprice.model.Recipe;
 import com.google.gson.Gson;
 
 public class IngredientListActivity extends AppCompatActivity {
@@ -36,6 +38,7 @@ public class IngredientListActivity extends AppCompatActivity {
         displayURL();
 
     }
+
 
     private void wireWidgets() {
         textViewTitle = findViewById(R.id.textView_ingredientList_recipe);

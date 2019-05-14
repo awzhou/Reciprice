@@ -1,4 +1,4 @@
-package com.example.reciprice;
+package com.example.reciprice.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,12 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.reciprice.R;
+import com.example.reciprice.model.Recipe;
+import com.example.reciprice.ui.RecipeAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
