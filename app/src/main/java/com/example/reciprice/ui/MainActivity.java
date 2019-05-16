@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity{
                         fm.beginTransaction().replace(R.id.container, new SaveFragment()).commit();
                     }else{
                         fm.beginTransaction().replace(R.id.container, new NotLoggedInFragment()).commit();
-                    } //yea
+                    }
                     return true;
                 case R.id.navigation_login:
                     if (!(Backendless.UserService.isValidLogin())) {

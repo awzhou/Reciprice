@@ -95,7 +95,6 @@ public class DisplayFragment extends Fragment {
         recipeResponseCall.enqueue(new Callback<RecipeResponse>() {
             @Override
             public void onResponse(Call<RecipeResponse> call, Response<RecipeResponse> response) {
-                Log.e("hits", response.body().getHits() + "");
                 if (!response.body().getHits().isEmpty()) {
                     List<RecipeWrapper> recipeWrappers = response.body().getHits();
 
@@ -130,6 +129,8 @@ public class DisplayFragment extends Fragment {
         switch(item.getItemId()){
             case R.id.save:
                 Recipe recipe = recipes.get(recipeAdapter.getPosition());
+
+                Log.e("recipe", recipes.get(recipeAdapter.getPosition()) + "");
 
                 BackendlessRecipe backendlessRecipe = new BackendlessRecipe();
                 backendlessRecipe.setLabel(recipe.getLabel());

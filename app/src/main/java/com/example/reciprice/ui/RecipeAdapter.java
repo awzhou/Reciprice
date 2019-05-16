@@ -61,6 +61,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     }else{
                         menu.add(Menu.NONE, R.id.delete, Menu.NONE, "Delete");
                     }
+                    position = getLayoutPosition();
                 }
             });
         }
