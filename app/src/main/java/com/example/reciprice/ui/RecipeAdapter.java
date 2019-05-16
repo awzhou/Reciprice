@@ -1,4 +1,4 @@
-package com.example.reciprice;
+package com.example.reciprice.ui;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -8,12 +8,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.reciprice.R;
+import com.example.reciprice.model.Recipe;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -86,7 +86,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         }
 
         recipeViewHolder.textViewRecipeTitle.setText(currentRecipe.getLabel());
-        recipeViewHolder.textViewRecipeCaution.setText(cautions);
+        recipeViewHolder.textViewRecipeCaution.setText("Cautions: " + cautions);
         Glide.with(recipeViewHolder.imageViewRecipeImage).load(currentRecipe.getImageURL()).into(recipeViewHolder.imageViewRecipeImage);
     }
 
