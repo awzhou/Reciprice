@@ -3,12 +3,16 @@ package com.example.reciprice.ui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.reciprice.R;
 import com.example.reciprice.model.Recipe;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IngredientListActivity extends AppCompatActivity {
     private Recipe recipe;
@@ -19,6 +23,9 @@ public class IngredientListActivity extends AppCompatActivity {
     private TextView textViewDietLabels;
     private TextView textViewHealthLabels;
     private TextView textViewRecipeLink;
+
+    private List<String> ingredientList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +44,8 @@ public class IngredientListActivity extends AppCompatActivity {
         displayHealthLabels();
         displayURL();
 
+        textViewIngredients.setOnClickListener(OnClickListener);
     }
-
 
     private void wireWidgets() {
         textViewTitle = findViewById(R.id.textView_ingredientList_recipe);
@@ -47,6 +54,20 @@ public class IngredientListActivity extends AppCompatActivity {
         textViewDietLabels = findViewById(R.id.textView_ingredientList_dietLabels);
         textViewHealthLabels = findViewById(R.id.textView_ingredientList_healthLabels);
         textViewRecipeLink = findViewById(R.id.textView_ingredientList_recipeLink);
+    }
+
+    private View.OnClickListener OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+           ingredientsClicked();
+        }
+    };
+
+    private void ingredientsClicked() {
+
+        Intent intent = new Intent(IngredientListActivity.this, findGroceryStoreActivity.class);
+        intent.putStringArrayListExtra("ingredientList", (ArrayList<String>) ingredientList);
+        startActivity(intent);
     }
 
     private void displayIngredients() {
@@ -70,11 +91,14 @@ public class IngredientListActivity extends AppCompatActivity {
         formattedIngredients += "• " + unformattedIngredients.substring(startIndex, endIndex);
 
         textViewIngredients.setText(formattedIngredients);
+        ingredientList = recipe.getIngredientLines();
 
         if (unformattedIngredients == "[]") {
             textViewIngredients.setText("No ingredients found");
         }
+
     }
+
 
     private void displayCautions() {
         //Populate Cautions
