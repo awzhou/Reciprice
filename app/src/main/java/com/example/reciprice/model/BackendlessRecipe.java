@@ -1,28 +1,17 @@
 package com.example.reciprice.model;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
-
-public class Recipe {
-
+public class BackendlessRecipe {
     private String label;
-    @SerializedName("url")
     private String recipeURL;
-    private List<String> dietLabels;
-    private List<String> healthLabels;
-    @SerializedName("image")
+    private String dietLabels;
+    private String healthLabels;
     private String imageURL;
-    private List<String> ingredientLines;
-    private List<String> cautions;
+    private String ingredientLines;
+    private String cautions;
     private String objectId;
     private String ownerId;
 
-    public Recipe() {
-    }
-
-    public Recipe(String label) {
-        this.label = label;
+    public BackendlessRecipe() {
     }
 
     public String getLabel() {
@@ -41,19 +30,19 @@ public class Recipe {
         this.recipeURL = recipeURL;
     }
 
-    public List<String> getDietLabels() {
+    public String getDietLabels() {
         return dietLabels;
     }
 
-    public void setDietLabels(List<String> dietLabels) {
+    public void setDietLabels(String dietLabels) {
         this.dietLabels = dietLabels;
     }
 
-    public List<String> getHealthLabels() {
+    public String getHealthLabels() {
         return healthLabels;
     }
 
-    public void setHealthLabels(List<String> healthLabels) {
+    public void setHealthLabels(String healthLabels) {
         this.healthLabels = healthLabels;
     }
 
@@ -65,19 +54,19 @@ public class Recipe {
         this.imageURL = imageURL;
     }
 
-    public List<String> getIngredientLines() {
+    public String getIngredientLines() {
         return ingredientLines;
     }
 
-    public void setIngredientLines(List<String> ingredientLines) {
+    public void setIngredientLines(String ingredientLines) {
         this.ingredientLines = ingredientLines;
     }
 
-    public List<String> getCautions() {
+    public String getCautions() {
         return cautions;
     }
 
-    public void setCautions(List<String> cautions) {
+    public void setCautions(String cautions) {
         this.cautions = cautions;
     }
 
@@ -99,13 +88,13 @@ public class Recipe {
 
     @Override
     public String toString() {
-        return "Recipe{" +
+        return "BackendlessRecipe{" +
                 "label='" + label + '\'' +
                 ", recipeURL='" + recipeURL + '\'' +
-                ", dietLabels=" + dietLabels +
-                ", healthLabels=" + healthLabels +
+                ", dietLabels='" + dietLabels + '\'' +
+                ", healthLabels='" + healthLabels + '\'' +
                 ", imageURL='" + imageURL + '\'' +
-                ", ingredientLines=" + ingredientLines +
+                ", ingredientLines='" + ingredientLines + '\'' +
                 ", cautions=" + cautions +
                 ", objectId='" + objectId + '\'' +
                 ", ownerId='" + ownerId + '\'' +

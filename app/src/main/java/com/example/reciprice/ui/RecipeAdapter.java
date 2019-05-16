@@ -20,6 +20,7 @@ import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>{
     private List<Recipe> recipes;
+    private boolean isSavable;
     private int position;
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder{
@@ -55,14 +56,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
                 @Override
                 public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-                    menu.add(Menu.NONE, R.id.save, Menu.NONE, "Save");
+                    if(isSavable) {
+                        menu.add(Menu.NONE, R.id.save, Menu.NONE, "Save");
+                    }else{
+                        menu.add(Menu.NONE, R.id.delete, Menu.NONE, "Delete");
+                    }
                 }
             });
         }
     }
 
-    public RecipeAdapter(List<Recipe> recipes) {
+    public RecipeAdapter(List<Recipe> recipes, boolean isSavable) {
         this.recipes = recipes;
+        this.isSavable = isSavable;
 
     }
 

@@ -1,6 +1,5 @@
 package com.example.reciprice.ui;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,18 +13,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 import com.example.reciprice.R;
+import com.example.reciprice.model.BackendlessRecipe;
 import com.example.reciprice.model.Recipe;
-import com.example.reciprice.model.RecipeWrapper;
 import com.example.reciprice.model.RecipeResponse;
+import com.example.reciprice.model.RecipeWrapper;
 import com.example.reciprice.repo.RecipeService;
+import com.example.reciprice.ui.RecipeAdapter;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,11 +43,9 @@ public class DisplayFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private RecipeAdapter recipeAdapter;
     private List<Recipe> recipes;
-    private List<Recipe> savedRecipes;
 
     private EditText searchText;
     private Button searchButton;
-    private ProgressBar loadingProgressbar;
 
     @Nullable
     @Override
@@ -55,20 +55,20 @@ public class DisplayFragment extends Fragment {
         wireWidgets(rootView);
 
         recipes = new ArrayList<>();
-        savedRecipes = new ArrayList<>();
         layoutManager = new LinearLayoutManager(getActivity());
-        recipeAdapter = new RecipeAdapter(recipes);
+        recipeAdapter = new RecipeAdapter(recipes, true);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recipeAdapter);
 
-        registerForContextMenu(recyclerView);
+        if(isLoggedIn()){
+            registerForContextMenu(recyclerView);
+        }
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 recipes.clear();
-                loadingProgressbar.setVisibility(View.VISIBLE);
                 searchRecipes();
                 // TODO: Hide keyboard
             }
@@ -81,7 +81,6 @@ public class DisplayFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerView_display);
         searchText = rootView.findViewById(R.id.editText_display_search);
         searchButton = rootView.findViewById(R.id.button_display_search);
-        loadingProgressbar = rootView.findViewById(R.id.progressbar_display_loading);
     }
 
     private void searchRecipes() {
@@ -101,9 +100,8 @@ public class DisplayFragment extends Fragment {
                     List<RecipeWrapper> recipeWrappers = response.body().getHits();
 
                     List<Recipe> newRecipes = addRecipes(recipeWrappers);
-                    recipes.addAll(newRecipes);
 
-                    loadingProgressbar.setVisibility(View.INVISIBLE);
+                    recipes.addAll(newRecipes);
                     recipeAdapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(getContext(), "No recipes were found. Please enter another search.", Toast.LENGTH_LONG).show();
@@ -128,34 +126,48 @@ public class DisplayFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        Gson gson = new GsonBuilder().create();
         switch(item.getItemId()){
             case R.id.save:
                 Recipe recipe = recipes.get(recipeAdapter.getPosition());
-                savedRecipes.add(recipe);
-                writeToFile(savedRecipes);
-                Toast.makeText(getContext(), "Successfully Saved", Toast.LENGTH_SHORT).show();
+
+                BackendlessRecipe backendlessRecipe = new BackendlessRecipe();
+                backendlessRecipe.setLabel(recipe.getLabel());
+                backendlessRecipe.setImageURL(recipe.getImageURL());
+                backendlessRecipe.setRecipeURL(recipe.getRecipeURL());
+                backendlessRecipe.setObjectId(recipe.getObjectId());
+                backendlessRecipe.setOwnerId(recipe.getOwnerId());
+                backendlessRecipe.setCautions(recipe.getCautions().toString());
+                backendlessRecipe.setIngredientLines(recipe.getIngredientLines().toString());
+                backendlessRecipe.setHealthLabels(recipe.getHealthLabels().toString());
+                backendlessRecipe.setDietLabels(recipe.getDietLabels().toString());
+
+
+                saveRecipe(backendlessRecipe);
                 break;
         }
         return true;
     }
 
-    public void writeToFile(List<Recipe> savedRecipes) {
-        // check if the file already exists...if it doesn't:
-        String fileName = "favoriteRecipes.txt";
-        File file = new File(getActivity().getFilesDir(), fileName);
-        Gson gson = new Gson();
+    public void saveRecipe(BackendlessRecipe backendlessRecipe) {
+        Backendless.Persistence.save(backendlessRecipe, new AsyncCallback<BackendlessRecipe>() {
+            @Override
+            public void handleResponse(BackendlessRecipe response) {
+                Toast.makeText(getContext(), "Successfully Saved", Toast.LENGTH_SHORT).show();
+                recipeAdapter.notifyDataSetChanged();
+            }
 
-        String s = gson.toJson(savedRecipes);
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                Log.e("fault", fault.getMessage() + "");
+            }
+        });
+    }
 
-        FileOutputStream outputStream;
-
-        try {
-            outputStream = getActivity().openFileOutput(fileName, Context.MODE_PRIVATE);
-            outputStream.write(s.getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-
+    public boolean isLoggedIn() {
+        if(Backendless.UserService.CurrentUser() != null){
+            return true;
         }
+        return  false;
     }
 }

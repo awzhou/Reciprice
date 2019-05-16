@@ -14,9 +14,6 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.example.reciprice.R;
 
-public class MainActivity extends AppCompatActivity {
-import com.backendless.Backendless;
-
 public class MainActivity extends AppCompatActivity{
 
 
