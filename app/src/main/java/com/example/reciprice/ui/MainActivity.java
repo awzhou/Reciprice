@@ -28,15 +28,35 @@ public class MainActivity extends AppCompatActivity{
                 case R.id.navigation_search:
                     fm.beginTransaction().replace(R.id.container, new DisplayFragment()).commit();
                     return true;
+                case R.id.navigation_saved:
+                    if(isLoggedIn()) {
+                        fm.beginTransaction().replace(R.id.container, new SaveFragment()).commit();
+                    }else{
+                        fm.beginTransaction().replace(R.id.container, new NotLoggedInFragment()).commit();
+                    }
+                    return true;
                 case R.id.navigation_login:
                     if (!(Backendless.UserService.isValidLogin())) {
                         fm.beginTransaction().replace(R.id.container, new LoginFragment()).commit();
+                        return true;
                     }
                     else {
                         Backendless.UserService.logout(new AsyncCallback<Void>() {
                             public void handleResponse(Void response) {
                                 // user has been logged out.
                                 Toast.makeText(MainActivity.this, "Logged Out", Toast.LENGTH_LONG).show();
+
+                                BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
+                                // get menu from navigationView
+                                Menu menu = navigation.getMenu();
+
+                                // find MenuItem you want to change
+                                MenuItem nav_account = menu.findItem(R.id.navigation_login);
+
+                                // set new title to the MenuItem
+                                nav_account.setTitle(R.string.title_login);
+
                                 fm.beginTransaction().replace(R.id.container, new LoginFragment()).commit();
 
                             }
@@ -45,13 +65,6 @@ public class MainActivity extends AppCompatActivity{
                                 Toast.makeText(MainActivity.this, fault.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         });
-                    }
-                    return true;
-                case R.id.navigation_saved:
-                    if(Backendless.UserService.isValidLogin()) {
-                        fm.beginTransaction().replace(R.id.container, new SaveFragment()).commit();
-                    }else{
-                        fm.beginTransaction().replace(R.id.container, new NotLoggedInFragment()).commit();
                     }
                     return true;
             }
@@ -81,4 +94,40 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        if (Backendless.UserService.isValidLogin()) {
+
+            BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
+            // get menu from navigationView
+            Menu menu = navigation.getMenu();
+
+            // find MenuItem you want to change
+            MenuItem nav_account = menu.findItem(R.id.navigation_login);
+
+            // set new title to the MenuItem
+            nav_account.setTitle(R.string.title_logout);
+        }
+        else {
+            BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
+            // get menu from navigationView
+            Menu menu = navigation.getMenu();
+
+            // find MenuItem you want to change
+            MenuItem nav_account = menu.findItem(R.id.navigation_login);
+
+            // set new title to the MenuItem
+            nav_account.setTitle(R.string.title_login);
+        }
+    }
+
+    public boolean isLoggedIn() {
+        if(Backendless.UserService.CurrentUser() != null){
+            return true;
+        }
+        return  false;
+    }
 }
