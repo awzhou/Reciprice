@@ -19,34 +19,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class IngredientActivity extends AppCompatActivity {
-    private int upc;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient);
     }
 
-    private void searchPrices(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.upcitemdb.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        ProductService service = retrofit.create(ProductService.class);
-        Call<ProductResponse> productServiceCall = service.findByUpc(upc);
-
-        productServiceCall.enqueue(new Callback<ProductResponse>() {
-            @Override
-            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
-                Items information = response.body().getItems();
-                List<Offer> offers = response.body().getOffers();
-            }
-
-            @Override
-            public void onFailure(Call<ProductResponse> call, Throwable t) {
-                Log.e("ENQUEUE", "onFailure: " + t.getMessage());
-            }
-        });
-    }
 }

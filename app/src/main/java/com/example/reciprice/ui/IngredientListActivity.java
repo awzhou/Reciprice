@@ -65,7 +65,7 @@ public class IngredientListActivity extends AppCompatActivity {
 
     private void ingredientsClicked() {
 
-        Intent intent = new Intent(IngredientListActivity.this, findGroceryStoreActivity.class);
+        Intent intent = new Intent(IngredientListActivity.this, FindGroceryStoreActivity.class);
         intent.putStringArrayListExtra("ingredientList", (ArrayList<String>) ingredientList);
         startActivity(intent);
     }
