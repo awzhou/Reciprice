@@ -28,17 +28,9 @@ public class MainActivity extends AppCompatActivity{
                 case R.id.navigation_search:
                     fm.beginTransaction().replace(R.id.container, new DisplayFragment()).commit();
                     return true;
-                case R.id.navigation_saved:
-                    if(isLoggedIn()) {
-                        fm.beginTransaction().replace(R.id.container, new SaveFragment()).commit();
-                    }else{
-                        fm.beginTransaction().replace(R.id.container, new NotLoggedInFragment()).commit();
-                    }
-                    return true;
                 case R.id.navigation_login:
                     if (!(Backendless.UserService.isValidLogin())) {
                         fm.beginTransaction().replace(R.id.container, new LoginFragment()).commit();
-                        return true;
                     }
                     else {
                         Backendless.UserService.logout(new AsyncCallback<Void>() {
@@ -53,9 +45,15 @@ public class MainActivity extends AppCompatActivity{
                                 Toast.makeText(MainActivity.this, fault.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         });
-                        return true;
                     }
-
+                    return true;
+                case R.id.navigation_saved:
+                    if(Backendless.UserService.isValidLogin()) {
+                        fm.beginTransaction().replace(R.id.container, new SaveFragment()).commit();
+                    }else{
+                        fm.beginTransaction().replace(R.id.container, new NotLoggedInFragment()).commit();
+                    }
+                    return true;
             }
             return false;
         }
@@ -83,11 +81,4 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-
-    public boolean isLoggedIn() {
-        if(Backendless.UserService.CurrentUser() != null){
-            return true;
-        }
-        return  false;
-    }
 }

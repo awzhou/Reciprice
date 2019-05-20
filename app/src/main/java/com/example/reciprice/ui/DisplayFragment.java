@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.example.reciprice.Credentials;
 import com.example.reciprice.R;
 import com.example.reciprice.model.BackendlessRecipe;
 import com.example.reciprice.model.Recipe;
@@ -46,6 +47,7 @@ public class DisplayFragment extends Fragment {
 
     private EditText searchText;
     private Button searchButton;
+
 
     @Nullable
     @Override
@@ -90,7 +92,7 @@ public class DisplayFragment extends Fragment {
                 .build();
 
         RecipeService service = retrofit.create(RecipeService.class);
-        Call<RecipeResponse> recipeResponseCall = service.searchByKeyWord(searchText.getText().toString(), "255f9b26", "94b4e1023e6be9907d1210dfdcbfa935");
+        Call<RecipeResponse> recipeResponseCall = service.searchByKeyWord(searchText.getText().toString(), Credentials.EDAMAM_APP_ID, Credentials.EDAMAM_API_KEY);
 
         recipeResponseCall.enqueue(new Callback<RecipeResponse>() {
             @Override
