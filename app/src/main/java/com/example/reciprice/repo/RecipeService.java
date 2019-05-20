@@ -13,7 +13,7 @@ public interface RecipeService {
     Call<RecipeResponse> searchByKeyWord(
             @Query("q")String keyword,
             @Query("app_id")String app_ID,
-            @Query("app_key")String app_ley);
+            @Query("app_key")String app_key);
 
 
 

@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.IngredientListActivity" />
-        <activity android:name=".ui.findGroceryStoreActivity"></activity>
+        <activity android:name=".ui.findGroceryStoreActivity" />
+        <activity android:name=".ui.IngredientActivity"></activity>
     </application>
 
 </manifest>
