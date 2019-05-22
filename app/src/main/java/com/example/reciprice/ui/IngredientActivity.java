@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class IngredientActivity extends AppCompatActivity {
 
 
-    private List<String> ingredientList;
+    private String ingredient;
 
 
     @Override
@@ -30,7 +30,7 @@ public class IngredientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient);
 
-        ingredientList = getIntent().getStringArrayListExtra("ingredientList");
+        ingredient = getIntent().getStringExtra("Ingredient");
         Intent intent = getIntent();
     }
 
