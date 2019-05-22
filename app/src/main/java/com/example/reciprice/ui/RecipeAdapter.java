@@ -45,7 +45,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     Gson gson = new Gson();
                     String json = gson.toJson(recipe);
 
-                    Intent intent = new Intent(v.getContext(), IngredientListActivity.class);
+                    Intent intent = new Intent(v.getContext(), RecipeListActivity.class);
                     intent.putExtra("recipe", json);
                     v.getContext().startActivity(intent);
 

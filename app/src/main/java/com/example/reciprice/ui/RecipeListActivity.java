@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IngredientListActivity extends AppCompatActivity {
+public class RecipeListActivity extends AppCompatActivity {
     private Recipe recipe;
     private TextView textViewTitle;
     private ImageView imageViewImage;
@@ -30,7 +30,7 @@ public class IngredientListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ingredient_list);
+        setContentView(R.layout.activity_recipe_list);
 
         Gson gson = new Gson();
         recipe = gson.fromJson(getIntent().getStringExtra("recipe"), Recipe.class);
@@ -65,7 +65,7 @@ public class IngredientListActivity extends AppCompatActivity {
 
     private void ingredientsClicked() {
 
-        Intent intent = new Intent(IngredientListActivity.this, FindGroceryStoreActivity.class);
+        Intent intent = new Intent(RecipeListActivity.this, FindGroceryStoreActivity.class);
         intent.putStringArrayListExtra("ingredientList", (ArrayList<String>) ingredientList);
         startActivity(intent);
     }
