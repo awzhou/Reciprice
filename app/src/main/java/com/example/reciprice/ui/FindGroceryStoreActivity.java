@@ -39,6 +39,9 @@ public class FindGroceryStoreActivity extends AppCompatActivity implements FindG
     public void onItemClick(View view, int position) {
         Toast.makeText(this, "You clicked " + adapter.getItem(position), Toast.LENGTH_SHORT).show();
 
+        Intent intent = new Intent(FindGroceryStoreActivity.this, IngredientActivity.class);
+        intent.putStringArrayListExtra("ingredientList", (ArrayList<String>) ingredientList);
+        startActivity(intent);
         //TODO: search this clicked ingredient in the grocery store service
     }
 }
