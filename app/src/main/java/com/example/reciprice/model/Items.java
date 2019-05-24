@@ -7,6 +7,7 @@ public class Items {
     private String description;
     private String brand;
     private List<String> images;
+    private List<Offer> offers;
 
     public Items() {
     }
@@ -43,6 +44,14 @@ public class Items {
         this.images = images;
     }
 
+    public List<Offer> getOffers() {
+        return offers;
+    }
+
+    public void setOffers(List<Offer> offers) {
+        this.offers = offers;
+    }
+
     @Override
     public String toString() {
         return "Items{" +
@@ -50,6 +59,7 @@ public class Items {
                 ", description='" + description + '\'' +
                 ", brand='" + brand + '\'' +
                 ", images=" + images +
+                ", offers=" + offers +
                 '}';
     }
 }

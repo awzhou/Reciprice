@@ -9,5 +9,5 @@ import retrofit2.http.Query;
 public interface ProductService {
 
     @GET("/prod/trial/lookup?")
-    Call<ProductResponse> findByUpc(@Query("upc")int upc);
+    Call<ProductResponse> findByUpc(@Query("upc")String upc);
 }

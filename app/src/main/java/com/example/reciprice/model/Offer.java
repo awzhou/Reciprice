@@ -4,7 +4,7 @@ public class Offer {
     private String merchant;
     private String domain;
     private String title;
-    private int price;
+    private double price;
     private String link;
 
     public Offer() {
@@ -34,11 +34,11 @@ public class Offer {
         this.title = title;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
