@@ -48,7 +48,6 @@ public class PriceActivity extends AppCompatActivity {
         upc = intent.getStringExtra("upc");
 
         wireWidgets();
-        searchPrices();
 
         offers = new ArrayList<>();
         priceAdapter = new PriceAdapter(offers);
@@ -56,6 +55,8 @@ public class PriceActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(priceAdapter);
+
+        searchPrices();
     }
 
     private void wireWidgets() {
@@ -79,7 +80,8 @@ public class PriceActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
                 Items information = response.body().getItems().get(0);
-                offers = response.body().getItems().get(0).getOffers();
+                List<Offer> newOffers = response.body().getItems().get(0).getOffers();
+                offers.addAll(newOffers);
                 priceAdapter.notifyDataSetChanged();
 
                 textViewTitle.setText(information.getTitle());

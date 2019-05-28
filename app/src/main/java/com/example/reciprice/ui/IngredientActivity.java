@@ -40,7 +40,7 @@ public class IngredientActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(IngredientActivity.this, PriceActivity.class);
-                intent.putExtra("upc", "021000010875");
+                intent.putExtra("upc", "");
                 startActivity(intent);
 
             }
