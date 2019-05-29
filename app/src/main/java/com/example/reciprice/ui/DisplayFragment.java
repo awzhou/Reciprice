@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.backendless.Backendless;
@@ -44,6 +45,7 @@ public class DisplayFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private RecipeAdapter recipeAdapter;
     private List<Recipe> recipes;
+    private ProgressBar progressBar;
 
     private EditText searchText;
     private Button searchButton;
@@ -83,9 +85,13 @@ public class DisplayFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerView_display);
         searchText = rootView.findViewById(R.id.editText_display_search);
         searchButton = rootView.findViewById(R.id.button_display_search);
+        progressBar = rootView.findViewById(R.id.progressbar_display_loading);
     }
 
     private void searchRecipes() {
+
+        progressBar.setVisibility(View.VISIBLE);
+
         Retrofit retrofit = new Retrofit.Builder().
                 baseUrl("https://api.edamam.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -104,6 +110,7 @@ public class DisplayFragment extends Fragment {
 
                     recipes.addAll(newRecipes);
                     recipeAdapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.INVISIBLE);
                 } else {
                     Toast.makeText(getContext(), "No recipes were found. Please enter another search.", Toast.LENGTH_LONG).show();
                 }
@@ -114,6 +121,8 @@ public class DisplayFragment extends Fragment {
                 Log.d("ENQUEUE", "onFailure: " + t.getMessage());
             }
         });
+
+
 
     }
 
