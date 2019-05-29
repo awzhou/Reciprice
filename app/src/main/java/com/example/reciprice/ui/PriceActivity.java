@@ -74,7 +74,7 @@ public class PriceActivity extends AppCompatActivity {
                 .build();
 
         ProductService service = retrofit.create(ProductService.class);
-        final Call<ProductResponse> productServiceCall = service.findByUpc(upc);
+        Call<ProductResponse> productServiceCall = service.findByUpc(upc);
 
         productServiceCall.enqueue(new Callback<ProductResponse>() {
             @Override
@@ -82,6 +82,7 @@ public class PriceActivity extends AppCompatActivity {
                 Items information = response.body().getItems().get(0);
                 List<Offer> newOffers = response.body().getItems().get(0).getOffers();
                 offers.addAll(newOffers);
+                Log.e("offers", offers.toString());
                 priceAdapter.notifyDataSetChanged();
 
                 textViewTitle.setText(information.getTitle());
