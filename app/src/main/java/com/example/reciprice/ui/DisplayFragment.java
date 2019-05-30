@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,7 +49,6 @@ public class DisplayFragment extends Fragment {
     private ProgressBar progressBar;
 
     private EditText searchText;
-    private Button searchButton;
 
 
     @Nullable
@@ -69,12 +69,18 @@ public class DisplayFragment extends Fragment {
             registerForContextMenu(recyclerView);
         }
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        searchText.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public void onClick(View v) {
-                recipes.clear();
-                searchRecipes();
-                // TODO: Hide keyboard
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    recipes.clear();
+                    searchRecipes();
+                    return true;
+                }
+                return false;
             }
         });
 
@@ -84,7 +90,6 @@ public class DisplayFragment extends Fragment {
     private void wireWidgets(View rootView) {
         recyclerView = rootView.findViewById(R.id.recyclerView_display);
         searchText = rootView.findViewById(R.id.editText_display_search);
-        searchButton = rootView.findViewById(R.id.button_display_search);
         progressBar = rootView.findViewById(R.id.progressbar_display_loading);
     }
 
