@@ -7,7 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -37,6 +39,7 @@ public class PriceActivity extends AppCompatActivity {
     private TextView textViewTitle;
     private TextView textViewBrand;
     private TextView textViewDescription;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +68,13 @@ public class PriceActivity extends AppCompatActivity {
         textViewTitle = findViewById(R.id.textView_price_title);
         textViewBrand = findViewById(R.id.textView_price_brand);
         textViewDescription = findViewById(R.id.textView_price_description);
+        progressBar = findViewById(R.id.progressBar_price);
     }
 
     private void searchPrices(){
+
+
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.upcitemdb.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -75,6 +82,7 @@ public class PriceActivity extends AppCompatActivity {
 
         ProductService service = retrofit.create(ProductService.class);
         Call<ProductResponse> productServiceCall = service.findByUpc(upc);
+        progressBar.setVisibility(View.VISIBLE);
 
         productServiceCall.enqueue(new Callback<ProductResponse>() {
             @Override
@@ -85,10 +93,13 @@ public class PriceActivity extends AppCompatActivity {
                 Log.e("offers", offers.toString());
                 priceAdapter.notifyDataSetChanged();
 
+
                 textViewTitle.setText(information.getTitle());
                 textViewBrand.setText(information.getBrand());
                 textViewDescription.setText(information.getDescription());
                 Glide.with(imageViewImage).load(information.getImages().get(0)).into(imageViewImage);
+
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -96,5 +107,7 @@ public class PriceActivity extends AppCompatActivity {
                 Log.e("ENQUEUE", "onFailure: " + t.getMessage());
             }
         });
+
+
     }
 }

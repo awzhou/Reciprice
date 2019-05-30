@@ -40,12 +40,13 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_display_search"></android.support.v7.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/editText_display_search"
+        app:layout_constraintVertical_bias="0.0"></android.support.v7.widget.RecyclerView>
 
     <ProgressBar
         android:id="@+id/progressbar_display_loading"
-        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
