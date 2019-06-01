@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.reciprice.R;
 import com.example.reciprice.model.Recipe;
 import com.google.gson.Gson;
@@ -38,6 +39,7 @@ public class RecipeListActivity extends AppCompatActivity {
 
         wireWidgets();
 
+        Glide.with(imageViewImage).load(recipe.getImageURL()).into(imageViewImage);
         displayIngredients();
         displayCautions();
         displayDietLabels();
@@ -54,6 +56,7 @@ public class RecipeListActivity extends AppCompatActivity {
         textViewDietLabels = findViewById(R.id.textView_ingredientList_dietLabels);
         textViewHealthLabels = findViewById(R.id.textView_ingredientList_healthLabels);
         textViewRecipeLink = findViewById(R.id.textView_ingredientList_recipeLink);
+        imageViewImage = findViewById(R.id.imageView_recipe_list_image);
     }
 
     private View.OnClickListener OnClickListener = new View.OnClickListener() {

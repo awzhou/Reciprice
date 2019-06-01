@@ -43,6 +43,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
 
+            <ImageView
+                android:id="@+id/imageView_recipe_list_image"
+                android:layout_width="match_parent"
+                android:layout_height="121dp"
+                app:srcCompat="@mipmap/ic_launcher" />
+
             <TextView
                 android:id="@+id/textView_ingredientList_title"
                 android:layout_width="match_parent"
