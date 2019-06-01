@@ -1,8 +1,14 @@
 package com.example.reciprice.ui;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,6 +53,7 @@ public class RecipeListActivity extends AppCompatActivity {
         displayURL();
 
         textViewIngredients.setOnClickListener(OnClickListener);
+        textViewIngredients.setPaintFlags(textViewIngredients.getPaintFlags()|Paint.UNDERLINE_TEXT_FLAG);
     }
 
     private void wireWidgets() {
@@ -180,6 +187,34 @@ public class RecipeListActivity extends AppCompatActivity {
         if (recipe.getRecipeURL().toString() == "[]") {
             textViewIngredients.setText("No URL found");
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch ((item.getItemId())){
+            case R.id.menu_item_home:
+                Intent intent = new Intent(RecipeListActivity.this, MainActivity.class);
+                finish();
+                startActivity(intent);
+
+//                Intent mStartActivity = new Intent(RecipeListActivity.this, MainActivity.class);
+//                int mPendingIntentId = 123456;
+//                PendingIntent mPendingIntent = PendingIntent.getActivity(RecipeListActivity.this, mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+//                AlarmManager mgr = (AlarmManager)RecipeListActivity.this.getSystemService(RecipeListActivity.this.ALARM_SERVICE);
+//                mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+//                System.exit(0);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 }
 

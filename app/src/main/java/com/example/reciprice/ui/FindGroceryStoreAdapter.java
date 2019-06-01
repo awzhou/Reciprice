@@ -1,6 +1,7 @@
 package com.example.reciprice.ui;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,7 @@ import java.util.List;
             ViewHolder(View itemView) {
                 super(itemView);
                 myTextView = itemView.findViewById(R.id.textView_ingredient);
+                myTextView.setPaintFlags(myTextView.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
                 itemView.setOnClickListener(this);
 
             }
