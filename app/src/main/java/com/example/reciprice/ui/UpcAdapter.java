@@ -41,7 +41,7 @@ public class UpcAdapter extends RecyclerView.Adapter<UpcAdapter.UpcViewHolder> {
     public void onBindViewHolder(@NonNull UpcViewHolder upcViewHolder, int i) {
         Product currentUpc = upcs.get(i);
         Log.e("currentUpc", currentUpc.getTitle());
-        upcViewHolder.textViewName.setText(currentUpc.getTitle());
+        upcViewHolder.textViewName.setText(currentUpc.getTitle().trim());
         Log.e("title", currentUpc.getTitle());
 
     }

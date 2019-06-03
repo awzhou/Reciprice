@@ -73,6 +73,7 @@ public class IngredientActivity extends AppCompatActivity{
             public void onResponse(Call<List<Upc>> call, Response<List<Upc>> response) {
                 Log.d("IngredientActivity", "onResponse: " + response.body());
                 List<Product> newUpcs = response.body().get(0).getProducts();
+                //newUpcs.get(0).getTitle().trim();
                 upcs.addAll(newUpcs);
                 upcAdapter.notifyDataSetChanged();
 
