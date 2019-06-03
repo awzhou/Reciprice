@@ -3,6 +3,7 @@ package com.example.reciprice;
 import android.app.Application;
 
 import com.backendless.Backendless;
+import com.example.reciprice.model.Credentials;
 
 public class RecipriceApplication extends Application {
 
@@ -10,6 +11,6 @@ public class RecipriceApplication extends Application {
     public void onCreate() {
         super.onCreate();
         // initialize Backendless connection
-        Backendless.initApp(this, com.example.reciprice.Credentials.APP_ID, com.example.reciprice.Credentials.API_KEY);
+        Backendless.initApp(this, Credentials.BACKENDLESS_APP_ID, Credentials.BACKENDLESS_API_KEY);
     }
 }

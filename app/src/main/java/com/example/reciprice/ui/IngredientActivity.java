@@ -5,19 +5,27 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.reciprice.R;
 import com.example.reciprice.model.Items;
 import com.example.reciprice.model.Offer;
+import com.example.reciprice.model.Product;
 import com.example.reciprice.model.ProductResponse;
+import com.example.reciprice.model.Upc;
 import com.example.reciprice.repo.ProductService;
+import com.example.reciprice.repo.UpcService;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,31 +34,70 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class IngredientActivity extends AppCompatActivity {
-
-
+public class IngredientActivity extends AppCompatActivity {//implements UpcAdapter.ItemClickListener
+    private RecyclerView recyclerViewUpcs;
+    private UpcAdapter upcAdapter;
+    private RecyclerView.LayoutManager layoutManager;
     private String ingredient;
-
+    private UpcService upcService;
+    private List<Product> upcs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient);
 
-        ingredient = getIntent().getStringExtra("Ingredient");
-        Intent intent = getIntent();
+        upcs = new ArrayList<>();
 
-        Button button = findViewById(R.id.yah);
-        button.setOnClickListener(new View.OnClickListener() {
+        recyclerViewUpcs = findViewById(R.id.recyclerView_upcs);
+
+        layoutManager = new LinearLayoutManager(this);
+        upcAdapter = new UpcAdapter(upcs);
+
+        //upcAdapter.setClickListener(this);
+        recyclerViewUpcs.setAdapter(upcAdapter);
+        recyclerViewUpcs.setLayoutManager(layoutManager);
+
+        ingredient = getIntent().getStringExtra("Ingredient");
+
+        HashMap<String, String[]> json = new HashMap<>();
+        json.put("ingredients", new String[] {ingredient});
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        upcService = retrofit.create(UpcService.class);
+        upcService.getUpc(json).enqueue(new Callback<List<Upc>>() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(IngredientActivity.this, PriceActivity.class);
-                intent.putExtra("upc", "039978003157");
-                startActivity(intent);
+            public void onResponse(Call<List<Upc>> call, Response<List<Upc>> response) {
+                Log.d("IngredientActivity", "onResponse: " + response.body());
+                List<Product> newUpcs = response.body().get(0).getProducts();
+                upcs.addAll(newUpcs);
+                upcAdapter.notifyDataSetChanged();
+
+
 
             }
+
+            @Override
+            public void onFailure(Call<List<Upc>> call, Throwable t) {
+                Log.d("IngredientActivity", "onFailure: Call failed.");
+            }
         });
+
+
     }
+
+//    @Override
+//    public void onItemClick(View view, int position) {
+//        Toast.makeText(this, "You clicked " + upcAdapter.getItem(position), Toast.LENGTH_SHORT).show();
+//
+//        Intent intent = new Intent(IngredientActivity.this, PriceActivity.class);
+//        intent.putExtra("Ingredient", upcAdapter.getItem(position));
+//        startActivity(intent);
+//        //TODO: search this clicked ingredient in the grocery store service
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

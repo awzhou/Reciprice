@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -20,14 +19,13 @@ import android.widget.Toast;
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
-import com.example.reciprice.Credentials;
 import com.example.reciprice.R;
 import com.example.reciprice.model.BackendlessRecipe;
 import com.example.reciprice.model.Recipe;
 import com.example.reciprice.model.RecipeResponse;
 import com.example.reciprice.model.RecipeWrapper;
+import com.example.reciprice.model.Credentials;
 import com.example.reciprice.repo.RecipeService;
-import com.example.reciprice.ui.RecipeAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -37,7 +35,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
