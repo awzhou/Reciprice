@@ -1,5 +1,6 @@
 package com.example.reciprice
 
+import com.example.reciprice.repo.IngredientsJson
 import com.example.reciprice.repo.UpcService
 import org.junit.Test
 import retrofit2.Retrofit
@@ -13,7 +14,7 @@ class RetrofitTest {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         val service = retrofit.create(UpcService::class.java)
-        val response = service.getUpc(hashMapOf("ingredients" to arrayOf("4 large eggs"))).execute()
+        val response = service.getUpc(IngredientsJson("4 large eggs")).execute()
         println(response.body())
     }
 }

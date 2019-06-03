@@ -1,38 +1,27 @@
 package com.example.reciprice.ui;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-
 import com.example.reciprice.R;
-import com.example.reciprice.model.Items;
-import com.example.reciprice.model.Offer;
 import com.example.reciprice.model.Product;
-import com.example.reciprice.model.ProductResponse;
 import com.example.reciprice.model.Upc;
-import com.example.reciprice.repo.ProductService;
+import com.example.reciprice.repo.IngredientsJson;
 import com.example.reciprice.repo.UpcService;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IngredientActivity extends AppCompatActivity {//implements UpcAdapter.ItemClickListener
     private RecyclerView recyclerViewUpcs;
@@ -60,8 +49,8 @@ public class IngredientActivity extends AppCompatActivity {//implements UpcAdapt
 
         ingredient = getIntent().getStringExtra("Ingredient");
 
-        HashMap<String, String[]> json = new HashMap<>();
-        json.put("ingredients", new String[] {ingredient});
+        //create json to pass into POST body
+        IngredientsJson json = new IngredientsJson(ingredient);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/")
