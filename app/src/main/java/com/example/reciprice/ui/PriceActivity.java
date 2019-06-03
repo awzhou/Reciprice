@@ -103,8 +103,8 @@ public class PriceActivity extends AppCompatActivity {
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
                 Log.e("response", response.body().toString());
                 Log.e("code", response.code() + "");
-                if(response.code() == 200){
-                    Toast.makeText(PriceActivity.this, "No products found. Please try another product.", Toast.LENGTH_LONG).show();
+                if(response.body().getItems().size() == 0){
+                    Toast.makeText(PriceActivity.this, "No products found. Please try another product.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 else{
