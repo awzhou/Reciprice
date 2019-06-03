@@ -1,10 +1,8 @@
 package com.example.reciprice.ui;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -12,10 +10,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
 import com.example.reciprice.R;
-import com.example.reciprice.model.Recipe;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class FindGroceryStoreActivity extends AppCompatActivity implements FindGroceryStoreAdapter.ItemClickListener{
@@ -64,13 +60,6 @@ public class FindGroceryStoreActivity extends AppCompatActivity implements FindG
                 Intent intent = new Intent(FindGroceryStoreActivity.this, MainActivity.class);
                 finish();
                 startActivity(intent);
-
-//                Intent mStartActivity = new Intent(FindGroceryStoreActivity.this, MainActivity.class);
-//                int mPendingIntentId = 123456;
-//                PendingIntent mPendingIntent = PendingIntent.getActivity(FindGroceryStoreActivity.this, mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-//                AlarmManager mgr = (AlarmManager)FindGroceryStoreActivity.this.getSystemService(FindGroceryStoreActivity.this.ALARM_SERVICE);
-//                mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
-//                System.exit(0);
                 break;
             default:
                 return super.onOptionsItemSelected(item);

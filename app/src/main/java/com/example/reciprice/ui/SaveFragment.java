@@ -11,9 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
@@ -21,23 +19,13 @@ import com.backendless.persistence.DataQueryBuilder;
 import com.example.reciprice.R;
 import com.example.reciprice.model.BackendlessRecipe;
 import com.example.reciprice.model.Recipe;
-import com.example.reciprice.ui.RecipeAdapter;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class SaveFragment extends Fragment {
     private RecyclerView recyclerView;
-    private TextView textViewTitle;
     private RecyclerView.LayoutManager layoutManager;
     private RecipeAdapter recipeAdapter;
     private List<Recipe> favoriteRecipes;
@@ -51,7 +39,6 @@ public class SaveFragment extends Fragment {
         readSaved();
 
         recyclerView = rootView.findViewById(R.id.recyclerView_save);
-        textViewTitle = rootView.findViewById(R.id.textView_save_title);
 
         layoutManager = new LinearLayoutManager(getContext());
         recipeAdapter = new RecipeAdapter(favoriteRecipes, false);

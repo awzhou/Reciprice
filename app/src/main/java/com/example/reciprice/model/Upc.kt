@@ -8,3 +8,9 @@ data class Upc(
         val originalString: String,
         val products: List<Product>
 )
+
+data class Product(
+        val id: Int,
+        val title: String,
+        val upc: String
+)

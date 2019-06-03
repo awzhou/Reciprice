@@ -2,12 +2,10 @@ package com.example.reciprice.ui;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.reciprice.R;
 import com.example.reciprice.model.Offer;
 
@@ -15,7 +13,6 @@ import java.util.List;
 
 public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.PriceViewHolder> {
     private List<Offer> offers;
-    private int position;
 
     public class PriceViewHolder extends RecyclerView.ViewHolder{
         private TextView textViewName;
@@ -63,9 +60,5 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.PriceViewHol
         }else{
             return offers.size();
         }
-    }
-
-    public int getPosition(){
-        return position;
     }
 }
