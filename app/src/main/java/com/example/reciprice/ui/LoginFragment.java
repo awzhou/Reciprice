@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
@@ -29,8 +27,6 @@ public class LoginFragment extends Fragment{
     private EditText editTextPassword;
     private TextView textViewTitle;
 
-    public static final String EXTRA_USERNAME = "username";
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,7 +37,6 @@ public class LoginFragment extends Fragment{
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: login to a different activity somewhere
                 loginToBackendless();
             }
         });
@@ -49,14 +44,6 @@ public class LoginFragment extends Fragment{
         textViewCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent createAccountIntent = new Intent(getContext(), CreateAccountFragment.class);
-
-                // TODO: pass info betw fragments
-//                String username = editTextUsername.getText().toString();
-//                if(username.length() > 0) {
-//                    createAccountIntent.putExtra(EXTRA_USERNAME, username);
-//                }
-//                startFragment(createAccountIntent);
 
                 Fragment newFragment = new CreateAccountFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();

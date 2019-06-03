@@ -1,14 +1,11 @@
 package com.example.reciprice.ui;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,22 +13,20 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.reciprice.R;
 import com.example.reciprice.model.Items;
 import com.example.reciprice.model.Offer;
 import com.example.reciprice.model.ProductResponse;
 import com.example.reciprice.repo.ProductService;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PriceActivity extends AppCompatActivity {
     private String upc;
@@ -128,13 +123,6 @@ public class PriceActivity extends AppCompatActivity {
                 Intent intent = new Intent(PriceActivity.this, MainActivity.class);
                 finish();
                 startActivity(intent);
-
-//                Intent mStartActivity = new Intent(PriceActivity.this, MainActivity.class);
-//                int mPendingIntentId = 123456;
-//                PendingIntent mPendingIntent = PendingIntent.getActivity(PriceActivity.this, mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-//                AlarmManager mgr = (AlarmManager)PriceActivity.this.getSystemService(PriceActivity.this.ALARM_SERVICE);
-//                mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
-//                System.exit(0);
                 break;
             default:
                 return super.onOptionsItemSelected(item);

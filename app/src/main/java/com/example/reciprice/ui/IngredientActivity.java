@@ -74,19 +74,7 @@ public class IngredientActivity extends AppCompatActivity {//implements UpcAdapt
                 Log.d("IngredientActivity", "onFailure: Call failed.");
             }
         });
-
-
     }
-
-//    @Override
-//    public void onItemClick(View view, int position) {
-//        Toast.makeText(this, "You clicked " + upcAdapter.getItem(position), Toast.LENGTH_SHORT).show();
-//
-//        Intent intent = new Intent(IngredientActivity.this, PriceActivity.class);
-//        intent.putExtra("Ingredient", upcAdapter.getItem(position));
-//        startActivity(intent);
-//        //TODO: search this clicked ingredient in the grocery store service
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -102,13 +90,6 @@ public class IngredientActivity extends AppCompatActivity {//implements UpcAdapt
                 Intent intent = new Intent(IngredientActivity.this, MainActivity.class);
                 finish();
                 startActivity(intent);
-
-//                Intent mStartActivity = new Intent(IngredientActivity.this, MainActivity.class);
-//                int mPendingIntentId = 123456;
-//                PendingIntent mPendingIntent = PendingIntent.getActivity(IngredientActivity.this, mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-//                AlarmManager mgr = (AlarmManager)IngredientActivity.this.getSystemService(IngredientActivity.this.ALARM_SERVICE);
-//                mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
-//                System.exit(0);
                 break;
             default:
                 return super.onOptionsItemSelected(item);
