@@ -16,13 +16,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.reciprice.R;
 import com.example.reciprice.model.Items;
 import com.example.reciprice.model.Offer;
+import com.example.reciprice.model.Product;
 import com.example.reciprice.model.ProductResponse;
+import com.example.reciprice.model.Recipe;
 import com.example.reciprice.repo.ProductService;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,14 +50,19 @@ public class PriceActivity extends AppCompatActivity {
     private TextView textViewDescription;
     private ProgressBar progressBar;
 
+    private Product product;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_price);
 
-        Intent intent = getIntent();
+
+        Gson gson = new Gson();
+        product = gson.fromJson(getIntent().getStringExtra("upc"), Product.class);
+
         //TODO: make sure names match up from ingredient activity
-        upc = intent.getStringExtra("upc");
+        upc = product.getUpc();
 
         wireWidgets();
 
@@ -87,24 +96,33 @@ public class PriceActivity extends AppCompatActivity {
 
         ProductService service = retrofit.create(ProductService.class);
         Call<ProductResponse> productServiceCall = service.findByUpc(upc);
-        progressBar.setVisibility(View.VISIBLE);
+
 
         productServiceCall.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
-                Items information = response.body().getItems().get(0);
-                List<Offer> newOffers = response.body().getItems().get(0).getOffers();
-                offers.addAll(newOffers);
-                Log.e("offers", offers.toString());
-                priceAdapter.notifyDataSetChanged();
+                Log.e("response", response.body().toString());
+                Log.e("code", response.code() + "");
+                if(response.code() == 200){
+                    Toast.makeText(PriceActivity.this, "No products found. Please try another product.", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                else{
+                    progressBar.setVisibility(View.VISIBLE);
+                    Items information = response.body().getItems().get(0);
+                    List<Offer> newOffers = response.body().getItems().get(0).getOffers();
+                    offers.addAll(newOffers);
+                    Log.e("offers", offers.toString());
+                    priceAdapter.notifyDataSetChanged();
 
 
-                textViewTitle.setText(information.getTitle());
-                textViewBrand.setText(information.getBrand());
-                textViewDescription.setText(information.getDescription());
-                Glide.with(imageViewImage).load(information.getImages().get(0)).into(imageViewImage);
+                    textViewTitle.setText(information.getTitle());
+                    textViewBrand.setText(information.getBrand());
+                    textViewDescription.setText(information.getDescription());
+                    Glide.with(imageViewImage).load(information.getImages().get(0)).into(imageViewImage);
 
-                progressBar.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override

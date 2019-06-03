@@ -34,7 +34,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class IngredientActivity extends AppCompatActivity {//implements UpcAdapter.ItemClickListener
+public class IngredientActivity extends AppCompatActivity{
     private RecyclerView recyclerViewUpcs;
     private UpcAdapter upcAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -54,7 +54,7 @@ public class IngredientActivity extends AppCompatActivity {//implements UpcAdapt
         layoutManager = new LinearLayoutManager(this);
         upcAdapter = new UpcAdapter(upcs);
 
-        //upcAdapter.setClickListener(this);
+
         recyclerViewUpcs.setAdapter(upcAdapter);
         recyclerViewUpcs.setLayoutManager(layoutManager);
 
@@ -89,15 +89,7 @@ public class IngredientActivity extends AppCompatActivity {//implements UpcAdapt
 
     }
 
-//    @Override
-//    public void onItemClick(View view, int position) {
-//        Toast.makeText(this, "You clicked " + upcAdapter.getItem(position), Toast.LENGTH_SHORT).show();
-//
-//        Intent intent = new Intent(IngredientActivity.this, PriceActivity.class);
-//        intent.putExtra("Ingredient", upcAdapter.getItem(position));
-//        startActivity(intent);
-//        //TODO: search this clicked ingredient in the grocery store service
-//    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
