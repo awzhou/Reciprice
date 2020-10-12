@@ -17,7 +17,16 @@ import com.example.reciprice.model.Items;
 import com.example.reciprice.model.Offer;
 import com.example.reciprice.model.ProductResponse;
 import com.example.reciprice.repo.ProductService;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,16 +49,34 @@ public class IngredientActivity extends AppCompatActivity {
         ingredient = getIntent().getStringExtra("Ingredient");
         Intent intent = getIntent();
 
-        Button button = findViewById(R.id.yah);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(IngredientActivity.this, PriceActivity.class);
-                intent.putExtra("upc", "039978003157");
-                startActivity(intent);
+        searchUpc();
+    }
 
+    private void searchUpc() {
+        try {
+            HttpResponse<JsonNode> response = Unirest.post("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/ingredients/map")
+                    .header("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
+                    .header("X-RapidAPI-Key", "4eced43f80mshed00119a7188f99p1c9537jsn1d729dfb7bae")
+                    .header("Content-Type", "application/json")
+                    .body("{  \"ingredients\": [\"" +ingredient+"\"],}")
+                    .asJson();
+            Log.e("upcresponse",response.getBody().toString());
+            Log.e("ingredient",ingredient);
+            JSONArray jsonArray = response.getBody().getArray();
+            ArrayList<String> upcs = new ArrayList<>();
+            if (jsonArray != null) for (int i = 0; i < jsonArray.length(); i++) {
+                try {
+                    upcs.add(jsonArray.getString(i));
+                }catch(JSONException e){
+                    e.printStackTrace();
+                }
             }
-        });
+
+            Log.e("upcs", upcs.toString());
+
+        }catch(UnirestException exception){
+            exception.printStackTrace();
+        }
     }
 
     @Override
